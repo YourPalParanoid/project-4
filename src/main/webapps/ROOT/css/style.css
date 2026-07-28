@@ -1,0 +1,73 @@
+body {
+    background-color: black;
+}
+
+h1 {
+    text-align: center;
+}
+
+hr {
+    border: 1px solid gray;
+}
+
+label{
+    color: yellow;
+    display: block;
+    font-size: x-large  ;
+    padding-right: 10px;
+}
+
+label.radio {
+    float: left;
+    color: blue;
+}
+
+input {
+    display: block;
+    background-color: white;
+    height: 20px;
+}
+
+input.radio {
+    float: left;
+}
+
+div {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+}
+
+div.radio {
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+    background-color: gray;
+}
+
+div.radioButton {
+    display: table-cell;
+    height:20px
+}
+
+button {
+    color: lime;
+    height: 35px;
+    font-size: large;
+    background-color: saddlebrown;
+    font-weight: bolder;
+    cursor: pointer;
+    display: inline;
+}
+
+p {
+    color: white;
+    text-align: center;
+}
+
+textarea{
+    background-color: blue;
+    color: white;
+    font-weight: bold;
+}

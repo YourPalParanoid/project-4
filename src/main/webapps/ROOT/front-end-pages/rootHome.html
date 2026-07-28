@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="../css/style.css" rel="stylesheet">
+    <title>Root Home Page Page</title>
+</head>
+<body>
+
+<h1 style="color: lime"> Welcome to the Summer 2026 Project 3 Enterprise System </h1>
+<h1 style="color: orange"> A Servlet/JSP-based Multi-Tiered Enterprise Application Using a Tomcat Container </h1>
+
+<hr>
+
+<p>You are connected to the Project 3 Enterprise System database as a <em style="color: lime">root-level</em> user. Please enter any SQL query or update command in the box below.</p>
+
+<div style="height: 500px;">
+    <label for="query"></label>
+    <textarea
+            id="query"
+            name="query"
+            rows="20"
+            cols="90"
+            required
+    ></textarea>
+</div>
+
+<div style="display: flex;height: 40px; column-gap: 20px">
+    <button type="button"> Execute Command </button>
+    <button type="button" style="color: red"> Reset Form </button>
+    <button type="button" style="color: yellow"> Clear Results </button>
+</div>
+<p> All execution results will appear below this line </p>
+<hr>
+<p> Execution Results: </p>
+
+</body>
+</html>
