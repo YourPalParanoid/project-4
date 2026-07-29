@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>CNT4714 Summer 2026 - Project 3 Enterprise System - Data Entry System</title>
+<style>
+	body {background : black; text-align: center; font-family: Arial;}
+	div {margin-top: 2em;}
+	fieldset {padding-top: 2em; padding-bottom: 0em; margin-bottom: 0em; margin-top: 1em; height: 11em;}
+	h1 {color: red; font-size: 28pt}
+	h2 {color: cyan; font-size: 24pt}
+	input {color: yellow; background: #665D1E; font-weight: bold; font-size: 16pt; margin-right: auto; margin-left: auto}
+		input[type="text"] {width: 98%}
+		input[type="submit"] {color: lime}
+		input[type="reset"] {color: red}
+		
+	legend {color: white; text-align: left}
+	p {color: white; font-size: 13pt}
+	table {font-family: Verdana; border: 3px solid yellow; margin-left: auto; margin-right: auto; width: 75%;}
+		th, td {padding: 5px; border: 1px solid yellow; color: lightblue; width: 20%}
+		textarea {width: 150px; height: 17pt; color: yellow; background: #665D1E; font-size: 14pt; font-family: Arial} 
+</style>
+
+</head>
+<body>
+	<h1>Welcome to the Summer 2026 Project 3 Enterprise System</h1>
+	<h2>Data Entry Application</h2>
+	<hr>
+	<p>
+		You are connected to the Project 3 Enterprise System database as a <em style="color: lime">data-entry-level</em> user. <br />
+		Enter the data values in the form below to add a new record to the corresponding database table <br />
+		<hr>
+	</p>
+	<form action="AddSupplierRecord" method="post">
+		<br />
+			<div>
+				<table>
+					<tr>
+						<th>snum</th><th>sname</th><th>status</th><th>city</th>
+					</tr>
+					<tr>
+						<td><textarea>snum</textarea></td>
+						<td><textarea>sname</textarea></td>
+						<td><textarea>status</textarea></td>
+						<td><textarea>city</textarea></td>
+					</tr>
+				</table>
+				<br />
+				<input type="submit" value="Enter Supplier Record into Database" name="suppliersForm"/> &nbsp; &nbsp; &nbsp;
+				<input type="reset" value="Clear Data and Results" onclick="javascript:eraseData();"/> &nbsp; &nbsp; &nbsp;
+			</div>
+	</form>
+	
+	<form action="AddPartsRecord" method="post">
+		<br />
+			<div>
+				<table>
+					<tr>
+						<th>pnum</th><th>pname</th><th>color</th><th>weight</th><th>city</th>
+					</tr>
+					<tr>
+						<td><textarea>pnum</textarea></td>
+						<td><textarea>pname</textarea></td>
+						<td><textarea>color</textarea></td>
+						<td><textarea>weight</textarea></td>
+						<td><textarea>city</textarea></td>
+					</tr>
+				</table>
+				<br />
+				<input type="submit" value="Enter Parts Record into Database" name="partsForm"/> &nbsp; &nbsp; &nbsp;
+				<input type="reset" value="Clear Data and Results" onclick="javascript:eraseData();"/> &nbsp; &nbsp; &nbsp;
+			</div>
+	</form>
+	
+	<form action="AddJobsRecord" method="post">
+		<br />
+			<div>
+				<table>
+					<tr>
+						<th>jnum</th><th>jname</th><th>numworkers</th><th>city</th>
+					</tr>
+					<tr>
+						<td><textarea>jnum</textarea></td>
+						<td><textarea>jname</textarea></td>
+						<td><textarea>numworkers</textarea></td>
+						<td><textarea>city</textarea></td>
+					</tr>
+				</table>
+				<br />
+				<input type="submit" value="Enter Jobs Record into Database" name="jobsForm"/> &nbsp; &nbsp; &nbsp;
+				<input type="reset" value="Clear Data and Results" onclick="javascript:eraseData();"/> &nbsp; &nbsp; &nbsp;
+			</div>
+	</form>
+	
+	<form action="AddShipmentsRecord" method="post">
+		<br />
+			<div>
+				<table>
+					<tr>
+						<th>snum</th><th>pnum</th><th>jnum</th><th>quantity</th>
+					</tr>
+					<tr>
+						<td><textarea>snum</textarea></td>
+						<td><textarea>pnum</textarea></td>
+						<td><textarea>jnum</textarea></td>
+						<td><textarea>quantity</textarea></td>
+					</tr>
+				</table>
+				<br />
+				<input type="submit" value="Enter Shipment Record into Database" name="shipmentForm"/> &nbsp; &nbsp; &nbsp;
+				<input type="reset" value="Clear Data and Results" onclick="javascript:eraseData();"/> &nbsp; &nbsp; &nbsp;
+			</div>
+	</form>
+	
+	<hr>
+	
+	<center>
+		<p>
+			<b>Execution Results</b>
+			<table>
+			
+			</table>
+		</p>
+	</center>
+	
+</body>
+</html>
