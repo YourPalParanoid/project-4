@@ -25,4 +25,26 @@
 			<servlet-name>authenticate</servlet-name>
 			<url-pattern>/authenticate</url-pattern>
 		</servlet-mapping>
+		
+	<servlet>
+		<servlet-name>client</servlet-name>
+		<servlet-class>clientServlet</servlet-class>
+	</servlet>
+	
+		<servlet-mapping>
+			<servlet-name>client</servlet-name>
+			<url-pattern>/client</url-pattern>
+		</servlet-mapping>
+		
+		<servlet>
+		<servlet-name>root</servlet-name>
+		<servlet-class>rootServlet</servlet-class>
+	</servlet>
+	
+		<servlet-mapping>
+			<servlet-name>root</servlet-name>
+			<url-pattern>/root</url-pattern>
+		</servlet-mapping>
+		
+	
 </web-app>
