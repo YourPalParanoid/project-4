@@ -67,7 +67,7 @@ public class clientServlet extends HttpServlet {
         		out.println("<table>");
         		out.println("<tr>");
         		
-        		for(int i = 1; i < count; i++)
+        		for(int i = 1; i <= count; i++)
         		{
         			out.println("<td>" + metadata.getColumnName(i) + "</td>");
         		}
@@ -78,7 +78,7 @@ public class clientServlet extends HttpServlet {
         		while (lookupResults.next())
         		{
         			out.println("<tr>");
-        			for(int i = 1; i < count; i++)
+        			for(int i = 1; i <= count; i++)
             		{
             			out.println("<td>" + lookupResults.getString(i) + "</td>");
             		}
@@ -91,14 +91,26 @@ public class clientServlet extends HttpServlet {
         	}
         	else
         	{
+        		out.println("<table>");
+        		out.println("<tr>");
         		// update query
+        		out.println("</table>");
+        		out.println("</body>");
+                out.println("</html>");
+                out.close();
         	}
         	
         	
         	
         } catch (SQLException e)
         {
+        	out.println("<table>");
+        	out.println("<tr><td><b>Error executing sql statement:</b><br>" + e.getMessage() + "</tr></td>");
         	message = "<tr><td><b>Error executing sql statement:</b><br>" + e.getMessage() + "</tr></td>";
+        	out.println("</table>");
+    		out.println("</body>");
+            out.println("</html>");
+            out.close();
         }
         
     	
