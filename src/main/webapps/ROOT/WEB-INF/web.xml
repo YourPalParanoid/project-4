@@ -90,5 +90,15 @@
 			<servlet-name>parts</servlet-name>
 			<url-pattern>/parts</url-pattern>
 		</servlet-mapping>
+		
+	<servlet>
+		<servlet-name>accountant</servlet-name>
+		<servlet-class>accountantUserServlet</servlet-class>
+	</servlet>
+	
+		<servlet-mapping>
+			<servlet-name>accountant</servlet-name>
+			<url-pattern>/accountant</url-pattern>
+		</servlet-mapping>
 	
 </web-app>
