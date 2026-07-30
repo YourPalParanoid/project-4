@@ -5,6 +5,7 @@ import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -35,27 +36,16 @@ public class clientServlet extends HttpServlet {
         String message = "";
         
         
-        response.setContentType("text/html");
-        PrintWriter out = response.getWriter();
 
 
-        out.println("<!DOCTYPE html>");
-        out.println("<html lang=\"en\">");
-        out.println("<meta charset=\"utf-8\">");
-
-        out.println("<head>");
-        out.println("<title>Testing WebApp Package Structure </title>");
-        out.println("</head>");
-
-        out.println("<body>");
-        out.println("<h1 style =\"color: black;\">PLEASE PRINT SOMETHING</h1>");
+        
+        message += ("<h1 style =\"color: black;\">PLEASE PRINT SOMETHING</h1>");
         
         
         try {
         	getClientDBConnection();
         	        	
         	//need to figure out how to display this lookupresult
-        	System.out.println("hi");
         	
         	if (query.toLowerCase().charAt(0) == 's')
         	{
@@ -64,56 +54,45 @@ public class clientServlet extends HttpServlet {
         		metadata = lookupResults.getMetaData();
         		int count = metadata.getColumnCount();
         		
-        		out.println("<table>");
-        		out.println("<tr>");
+        		message += ("<tr>");
         		
         		for(int i = 1; i <= count; i++)
         		{
-        			out.println("<td>" + metadata.getColumnName(i) + "</td>");
+        			message += ("<th>" + metadata.getColumnName(i) + "</th>");
         		}
         		
-        		out.println("</tr>");
+        		message += ("</tr>");
                 
         		
         		while (lookupResults.next())
         		{
-        			out.println("<tr>");
+        			message += ("<tr>");
         			for(int i = 1; i <= count; i++)
             		{
-            			out.println("<td>" + lookupResults.getString(i) + "</td>");
+            			message += ("<td>" + lookupResults.getString(i) + "</td>");
             		}
-        			out.println("</tr>");
+        			message += ("</tr>");
         		}
-        		out.println("</table>");
-        		out.println("</body>");
-                out.println("</html>");
-                out.close();
+        		
         	}
         	else
         	{
-        		out.println("<table>");
-        		out.println("<tr>");
-        		// update query
-        		out.println("</table>");
-        		out.println("</body>");
-                out.println("</html>");
-                out.close();
+        		
         	}
         	
         	
         	
         } catch (SQLException e)
         {
-        	out.println("<table>");
-        	out.println("<tr><td><b>Error executing sql statement:</b><br>" + e.getMessage() + "</tr></td>");
-        	message = "<tr><td><b>Error executing sql statement:</b><br>" + e.getMessage() + "</tr></td>";
-        	out.println("</table>");
-    		out.println("</body>");
-            out.println("</html>");
-            out.close();
+        	
+        	message += ("<tr><td><b>Error executing sql statement:</b><br>" + e.getMessage() + "</tr></td>");
+        	
         }
         
-    	
+        HttpSession session = request.getSession();
+        session.setAttribute("message", message);
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/front-end-pages/clientHome.jsp");
+    	dispatcher.forward(request, response);
     }
     
     private void getClientDBConnection() {

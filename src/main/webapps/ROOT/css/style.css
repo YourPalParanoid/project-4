@@ -71,3 +71,23 @@ textarea{
     color: white;
     font-weight: bold;
 }
+
+td, table {
+	text-align: center;
+	color: black;
+	background-color: white;
+}
+
+th {
+	text-align: center;
+	background-color: blue;
+	font-weight: bold;
+	color: white;
+	
+}
+
+table.data {
+	text-align: center;
+	color: black;
+	background-color: white;
+} 

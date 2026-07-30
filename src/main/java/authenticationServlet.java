@@ -54,20 +54,20 @@ public class authenticationServlet extends HttpServlet {
     		switch (inUserName) {
     		case "root":
     			// redirect to root homepage
-    			response.sendRedirect("/front-end-pages/rootHome.html");
+    			response.sendRedirect("/front-end-pages/rootHome.jsp");
     			break;
     		case "client":
-    			response.sendRedirect("/front-end-pages/clientHome.html");
+    			response.sendRedirect("/front-end-pages/clientHome.jsp");
     			break;
     		case "dataentry":
-    			response.sendRedirect("/front-end-pages/dataEntryHome.html");
+    			response.sendRedirect("/front-end-pages/dataEntryHome.jsp");
     			break;
     		case "theaccountant":
-    			response.sendRedirect("/front-end-pages/accountantHome.html");
+    			response.sendRedirect("/front-end-pages/accountantHome.jsp");
     			break;
     		}
         }else{
-        	response.sendRedirect("/front-end-pages/Error.html");
+        	response.sendRedirect("/front-end-pages/Error.jsp");
         }
         
     	
