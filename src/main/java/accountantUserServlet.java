@@ -56,7 +56,8 @@ public class accountantUserServlet extends HttpServlet {
         try {
         	getClientDBConnection();
         	
-        	switch (value) {
+        	switch (value) 
+        	{
         		case "1":
         			query = "select MAX(status) from suppliers";
         			lookupResults = statement.executeQuery(query);
@@ -70,7 +71,81 @@ public class accountantUserServlet extends HttpServlet {
             		out.println("</tr>");
             		out.println("</table>");
             		break;
-        	}
+            		
+        		case "2":
+        			query = "select SUM(weight) from parts";
+        			lookupResults = statement.executeQuery(query);
+        			lookupResults.next();
+        			out.println("<table>");
+            		out.println("<tr>");
+            		out.println("<td>TOTAL_WEIGHT_OF_ALL_PARTS</td>");
+            		out.println("</tr>");
+            		out.println("<tr>");
+            		out.println("<td>"+ lookupResults.getInt(1) + "</td>");
+            		out.println("</tr>");
+            		out.println("</table>");
+            		break;
+            		
+        		case "3":
+        			query = "select COUNT(*) from shipments";
+        			lookupResults = statement.executeQuery(query);
+        			lookupResults.next();
+        			out.println("<table>");
+            		out.println("<tr>");
+            		out.println("<td>TOTAL_NUMBER_OF_SHIPMENTS</td>");
+            		out.println("</tr>");
+            		out.println("<tr>");
+            		out.println("<td>"+ lookupResults.getInt(1) + "</td>");
+            		out.println("</tr>");
+            		out.println("</table>");
+            		break;
+            		
+        		case "4":
+        			query = "select jname, jnum from jobs where numworkers = ( select MAX(numworkers) from jobs )";
+        			lookupResults = statement.executeQuery(query);
+        			lookupResults.next();
+        			out.println("<table>");
+            		out.println("<tr>");
+            		out.println("<td>jname</td><td>jnum</td>");
+            		out.println("</tr>");
+            		out.println("<tr>");
+            		out.println("<td>"+ lookupResults.getString(1) + "</td><td>" + lookupResults.getString(2) + "</td>");
+            		out.println("</tr>");
+            		out.println("</table>");
+            		break;
+            		
+        		case "5":
+        			query = "select sname, status from suppliers";
+        			lookupResults = statement.executeQuery(query);
+        			metadata = lookupResults.getMetaData();
+            		int count = metadata.getColumnCount();
+        			lookupResults.next();
+        			out.println("<table>");
+            		out.println("<tr>");
+            		
+            		for(int i = 1; i <= count; i++)
+            		{
+            			out.println("<td>" + metadata.getColumnName(i) + "</td>");
+            		}
+            		
+            		out.println("</tr>");
+                    
+            		
+            		while (lookupResults.next())
+            		{
+            			out.println("<tr>");
+            			for(int i = 1; i <= count; i++)
+                		{
+                			out.println("<td>" + lookupResults.getString(i) + "</td>");
+                		}
+            			out.println("</tr>");
+            		}
+            		out.println("</table>");
+            		out.println("</body>");
+                    out.println("</html>");
+                    out.close();
+            	}
+
     		
     		out.println("</body>");
             out.println("</html>");
