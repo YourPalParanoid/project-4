@@ -59,7 +59,7 @@ public class authenticationServlet extends HttpServlet {
     		case "client":
     			response.sendRedirect("/front-end-pages/clientHome.html");
     			break;
-    		case "dataentryuser":
+    		case "dataentry":
     			response.sendRedirect("/front-end-pages/dataEntryHome.html");
     			break;
     		case "theaccountant":

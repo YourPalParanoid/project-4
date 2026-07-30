@@ -3,9 +3,14 @@
         CNT 4714 Summer 2026 Project 3
     </display-name>
     <description>
+   
 
     </description>
-
+    
+    <welcome-file-list>
+    	<welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+    
     <servlet>
         <servlet-name>eins</servlet-name>
         <servlet-class>devVerTestServlet</servlet-class>
@@ -46,5 +51,44 @@
 			<url-pattern>/root</url-pattern>
 		</servlet-mapping>
 		
+	<servlet>
+		<servlet-name>supplier</servlet-name>
+		<servlet-class>suppliersInsertServlet</servlet-class>
+	</servlet>
+	
+		<servlet-mapping>
+			<servlet-name>supplier</servlet-name>
+			<url-pattern>/supplier</url-pattern>
+		</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>shipment</servlet-name>
+		<servlet-class>shipmentsInsertServlet</servlet-class>
+	</servlet>
+	
+		<servlet-mapping>
+			<servlet-name>shipment</servlet-name>
+			<url-pattern>/shipment</url-pattern>
+		</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>jobs</servlet-name>
+		<servlet-class>jobsInsertServlet</servlet-class>
+	</servlet>
+	
+		<servlet-mapping>
+			<servlet-name>jobs</servlet-name>
+			<url-pattern>/jobs</url-pattern>
+		</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>parts</servlet-name>
+		<servlet-class>partsInsertServlet</servlet-class>
+	</servlet>
+	
+		<servlet-mapping>
+			<servlet-name>parts</servlet-name>
+			<url-pattern>/parts</url-pattern>
+		</servlet-mapping>
 	
 </web-app>
