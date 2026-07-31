@@ -35,13 +35,7 @@ public class clientServlet extends HttpServlet {
         String query = request.getParameter("query");
         String message = "";
         
-        
-
-
-        
-        message += ("<h1 style =\"color: black;\">PLEASE PRINT SOMETHING</h1>");
-        
-        
+               
         try {
         	getClientDBConnection();
         	        	

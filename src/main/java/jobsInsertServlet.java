@@ -5,6 +5,7 @@ import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -43,19 +44,6 @@ public class jobsInsertServlet extends HttpServlet {
         
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
-
-
-        out.println("<!DOCTYPE html>");
-        out.println("<html lang=\"en\">");
-        out.println("<meta charset=\"utf-8\">");
-
-        out.println("<head>");
-        out.println("<title>Testing WebApp Package Structure </title>");
-        out.println("</head>");
-
-        out.println("<body>");
-        out.println("<h1 style =\"color: black;\">PLEASE PRINT SOMETHING</h1>");
-        
         
         try {
         	getClientDBConnection();
@@ -66,40 +54,23 @@ public class jobsInsertServlet extends HttpServlet {
         	pstatement.setString(3, numworkers);
         	pstatement.setString(4, city);
         	        	
-        	System.out.println(pstatement);
-        	//need to figure out how to display this lookupresult
-        	System.out.println("hi");
+        	
         	
     		// update query
     		pstatement.executeUpdate();
     		
-    		out.println("<p style=\"color: black;\"> New Shipment Record (" + jnum + ", " + jname + ", " + numworkers + ", " + city + ")</p>");
+    		message += ("<td style=\"color: black\"> New Shipment Record (" + jnum + ", " + jname + ", " + numworkers + ", " + city + ")</td>");
     		
-    		out.println("</body>");
-            out.println("</html>");
-            out.close();
-    	
-    		out.println("<table>");
-    		out.println("<tr>");
-    		// update query
-    		out.println("</table>");
-    		out.println("</body>");
-            out.println("</html>");
-            out.close();
-        	
-        	
         } catch (SQLException e)
         {
-        	out.println("<table>");
-        	out.println("<tr><td><b>Error executing sql statement:</b><br>" + e.getMessage() + "</tr></td>");
-        	message = "<tr><td><b>Error executing sql statement:</b><br>" + e.getMessage() + "</tr></td>";
-        	out.println("</table>");
-    		out.println("</body>");
-            out.println("</html>");
-            out.close();
+        	message += ("<tr><td><b>Error executing sql statement:</b><br>" + e.getMessage() + "</tr></td>");
+            
         }
         
-    	
+        HttpSession session = request.getSession();
+        session.setAttribute("message", message);
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/front-end-pages/dataEntryHome.jsp");
+    	 dispatcher.forward(request, response);
     }
     
     private void getClientDBConnection() {

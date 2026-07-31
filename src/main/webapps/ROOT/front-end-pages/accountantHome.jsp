@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<%
+	String message = (String) session.getAttribute("message");
+	if(message == null) message = " ";
+%>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -17,7 +21,7 @@
 <form action="../accountant" method="post">
 <div class="radio">
     <div class="radioButton">
-        <input type="radio" name="radio" id="radio1" class="radio" checked value="1">
+        <input type="radio" name="radio" id="radio1" class="radio"  value="1">
         <label class=radio for="radio1">Get the Maximum Status of All Suppliers <em style="color: black;"> (Returns a Maximum Value)</em></label>
     </div>
     <div class="radioButton">
@@ -47,6 +51,10 @@
 <p> All execution results will appear below this line </p>
 <hr>
 <p> Execution Results: </p>
-
+<center>
+	<table id="data" style="background-color: white; color: black; text-align: center">
+		<%=message%>
+	</table>
+</center>
 </body>
 </html>

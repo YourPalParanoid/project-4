@@ -5,6 +5,7 @@ import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -21,6 +22,7 @@ public class rootServlet extends HttpServlet {
 	private ResultSet lookupResults;
 	private Statement statement;
 	private ResultSetMetaData metadata;
+	private String message = "";
 	
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
@@ -30,30 +32,16 @@ public class rootServlet extends HttpServlet {
         // String credQuery = "select * from usercredentials where login_username = ? and login_password = ?";
         
         String query = request.getParameter("query");
-        System.out.println(query);
         
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
-        String message = "";
-
-
-        out.println("<!DOCTYPE html>");
-        out.println("<html lang=\"en\">");
-        out.println("<meta charset=\"utf-8\">");
-
-        out.println("<head>");
-        out.println("<title>Testing WebApp Package Structure </title>");
-        out.println("</head>");
-
-        out.println("<body>");
-        out.println("<h1 style =\"color: black;\">PLEASE PRINT SOMETHING</h1>");
+        
         
         
         try {
         	getRootDBConnection();
         	        	
         	//need to figure out how to display this lookupresult
-        	System.out.println("hi");
         	
         	if (query.toLowerCase().charAt(0) == 's')
         	{
@@ -62,54 +50,46 @@ public class rootServlet extends HttpServlet {
         		metadata = lookupResults.getMetaData();
         		int count = metadata.getColumnCount();
         		
-        		out.println("<table>");
-        		out.println("<tr>");
+        		message +=("<tr>");
         		
         		for(int i = 1; i <= count; i++)
         		{
-        			out.println("<td>" + metadata.getColumnName(i) + "</td>");
+        			message +=("<td>" + metadata.getColumnName(i) + "</td>");
         		}
         		
-        		out.println("</tr>");
+        		message +=("</tr>");
                 
         		
         		while (lookupResults.next())
         		{
-        			out.println("<tr>");
+        			message +=("<tr>");
         			for(int i = 1; i <= count; i++)
             		{
-            			out.println("<td>" + lookupResults.getString(i) + "</td>");
+            			message +=("<td>" + lookupResults.getString(i) + "</td>");
             		}
-        			out.println("</tr>");
+        			message +=("</tr>");
         		}
-        		out.println("</table>");
-        		out.println("</body>");
-                out.println("</html>");
-                out.close();
+                
         	}
         	else
         	{
-        		out.println("<table>");
-        		out.println("<tr>");
+        		message +=("<tr>");
         		// update query
-        		out.println("</table>");
-        		out.println("</body>");
-                out.println("</html>");
-                out.close();
+        		
+                
         	}
         	
         	
         	
         } catch (SQLException e)
         {
-        	out.println("<table>");
-        	out.println("<tr><td><b>Error executing sql statement:</b><br>" + e.getMessage() + "</tr></td>");
-        	message = "<tr><td><b>Error executing sql statement:</b><br>" + e.getMessage() + "</tr></td>";
-        	out.println("</table>");
-    		out.println("</body>");
-            out.println("</html>");
-            out.close();
-        }
+        	message +=("<tr><td><b>Error executing sql statement:</b><br>" + e.getMessage() + "</tr></td>");
+        	}
+        
+        HttpSession session = request.getSession();
+        session.setAttribute("message", message);
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/front-end-pages/rootHome.jsp");
+    	dispatcher.forward(request, response);
         
     	
     }
@@ -129,13 +109,13 @@ public class rootServlet extends HttpServlet {
     		connection = datasource.getConnection();
     		statement = connection.createStatement();
     	} catch (SQLException e) {
-    		System.out.println(e);
+    		message +=(e);
     	} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-    		System.out.println(e);
+    		message +=(e);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			System.out.println(e);
+			message +=(e);
 		}
     	
     }

@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<%
+	String message = (String) session.getAttribute("message");
+	if(message == null) message = " ";
+%>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -36,6 +40,10 @@
 <p> All execution results will appear below this line </p>
 <hr>
 <p> Execution Results: </p>
-
+<center>
+	<table id="data" style="background-color: white; color: black; text-align: center">
+		<%=message%>
+	</table>
+</center>
 </body>
 </html>

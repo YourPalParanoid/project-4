@@ -5,6 +5,7 @@ import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -18,12 +19,9 @@ import java.io.FileNotFoundException;
 
 public class accountantUserServlet extends HttpServlet {
 	private Connection connection;
-	private ResultSet lookupResults;
-	private ResultSetMetaData metadata;
+	private Statement statement;
 	private int mysqlUpdateValue;
 	private int[] updateReturnValues;
-	private Statement statement;
-	
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
         // boolean goodCred = false;
@@ -31,29 +29,15 @@ public class accountantUserServlet extends HttpServlet {
         // String inPassword = request.getParameter("password");
         // String credQuery = "select * from usercrError executing sql statement:
         
+    	
+    	ResultSet lookupResults;
+    	ResultSetMetaData metadata;
     	String value = request.getParameter("radio");
-    	System.out.println(value);
     	String query = "";
         
         String message = "";
         
-        response.setContentType("text/html");
-        PrintWriter out = response.getWriter();
-
-
-        out.println("<!DOCTYPE html>");
-        out.println("<html lang=\"en\">");
-        out.println("<meta charset=\"utf-8\">");
-
-        out.println("<head>");
-        out.println("<title>Testing WebApp Package Structure </title>");
-        out.println("</head>");
-
-        out.println("<body>");
-        out.println("<h1 style =\"color: black;\">PLEASE PRINT SOMETHING</h1>");
-        
-        
-        try {
+         try {
         	getClientDBConnection();
         	
         	switch (value) 
@@ -62,56 +46,48 @@ public class accountantUserServlet extends HttpServlet {
         			query = "select MAX(status) from suppliers";
         			lookupResults = statement.executeQuery(query);
         			lookupResults.next();
-        			out.println("<table>");
-            		out.println("<tr>");
-            		out.println("<td>Maximum_Status_Of_All_Suppliers</td>");
-            		out.println("</tr>");
-            		out.println("<tr>");
-            		out.println("<td>"+ lookupResults.getInt(1) + "</td>");
-            		out.println("</tr>");
-            		out.println("</table>");
+            		message += ("<tr>");
+            		message += ("<td>Maximum_Status_Of_All_Suppliers</td>");
+            		message += ("</tr>");
+            		message += ("<tr>");
+            		message += ("<td>"+ lookupResults.getInt(1) + "</td>");
+            		message += ("</tr>");
             		break;
             		
         		case "2":
         			query = "select SUM(weight) from parts";
         			lookupResults = statement.executeQuery(query);
         			lookupResults.next();
-        			out.println("<table>");
-            		out.println("<tr>");
-            		out.println("<td>TOTAL_WEIGHT_OF_ALL_PARTS</td>");
-            		out.println("</tr>");
-            		out.println("<tr>");
-            		out.println("<td>"+ lookupResults.getInt(1) + "</td>");
-            		out.println("</tr>");
-            		out.println("</table>");
+            		message += ("<tr>");
+            		message += ("<td>TOTAL_WEIGHT_OF_ALL_PARTS</td>");
+            		message += ("</tr>");
+            		message += ("<tr>");
+            		message += ("<td>"+ lookupResults.getInt(1) + "</td>");
+            		message += ("</tr>");
             		break;
             		
         		case "3":
         			query = "select COUNT(*) from shipments";
         			lookupResults = statement.executeQuery(query);
         			lookupResults.next();
-        			out.println("<table>");
-            		out.println("<tr>");
-            		out.println("<td>TOTAL_NUMBER_OF_SHIPMENTS</td>");
-            		out.println("</tr>");
-            		out.println("<tr>");
-            		out.println("<td>"+ lookupResults.getInt(1) + "</td>");
-            		out.println("</tr>");
-            		out.println("</table>");
+            		message += ("<tr>");
+            		message += ("<td>TOTAL_NUMBER_OF_SHIPMENTS</td>");
+            		message += ("</tr>");
+            		message += ("<tr>");
+            		message += ("<td>"+ lookupResults.getInt(1) + "</td>");
+            		message += ("</tr>");
             		break;
             		
         		case "4":
         			query = "select jname, jnum from jobs where numworkers = ( select MAX(numworkers) from jobs )";
         			lookupResults = statement.executeQuery(query);
         			lookupResults.next();
-        			out.println("<table>");
-            		out.println("<tr>");
-            		out.println("<td>jname</td><td>jnum</td>");
-            		out.println("</tr>");
-            		out.println("<tr>");
-            		out.println("<td>"+ lookupResults.getString(1) + "</td><td>" + lookupResults.getString(2) + "</td>");
-            		out.println("</tr>");
-            		out.println("</table>");
+            		message += ("<tr>");
+            		message += ("<td>jname</td><td>jnum</td>");
+            		message += ("</tr>");
+            		message += ("<tr>");
+            		message += ("<td>"+ lookupResults.getString(1) + "</td><td>" + lookupResults.getString(2) + "</td>");
+            		message += ("</tr>");
             		break;
             		
         		case "5":
@@ -120,55 +96,37 @@ public class accountantUserServlet extends HttpServlet {
         			metadata = lookupResults.getMetaData();
             		int count = metadata.getColumnCount();
         			lookupResults.next();
-        			out.println("<table>");
-            		out.println("<tr>");
+            		message += ("<tr>");
             		
             		for(int i = 1; i <= count; i++)
             		{
-            			out.println("<td>" + metadata.getColumnName(i) + "</td>");
+            			message += ("<td>" + metadata.getColumnName(i) + "</td>");
             		}
             		
-            		out.println("</tr>");
+            		message += ("</tr>");
                     
             		
             		while (lookupResults.next())
             		{
-            			out.println("<tr>");
+            			message += ("<tr>");
             			for(int i = 1; i <= count; i++)
                 		{
-                			out.println("<td>" + lookupResults.getString(i) + "</td>");
+                			message += ("<td>" + lookupResults.getString(i) + "</td>");
                 		}
-            			out.println("</tr>");
+            			message += ("</tr>");
             		}
-            		out.println("</table>");
-            		out.println("</body>");
-                    out.println("</html>");
-                    out.close();
-            	}
-
-    		
-    		out.println("</body>");
-            out.println("</html>");
-            out.close();
-    	
-    		
-    		out.println("</body>");
-            out.println("</html>");
-            out.close();
-        	
-        	
+        	}
         } catch (SQLException e)
         {
-        	out.println("<table>");
-        	out.println("<tr><td><b>Error executing sql statement:</b><br>" + e.getMessage() + "</tr></td>");
-        	message = "<tr><td><b>Error executing sql statement:</b><br>" + e.getMessage() + "</tr></td>";
-        	out.println("</table>");
-    		out.println("</body>");
-            out.println("</html>");
-            out.close();
+        	message += ("<tr><td><b>Error executing sql statement:</b><br>" + e.getMessage() + "</tr></td>");
+        	 
         }
+         HttpSession session = request.getSession();
+         session.setAttribute("message", message);
+         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/front-end-pages/accountantHome.jsp");
+     	 dispatcher.forward(request, response);
         
-    	
+        
     }
     
     private void getClientDBConnection() {

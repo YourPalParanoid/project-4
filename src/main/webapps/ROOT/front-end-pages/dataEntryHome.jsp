@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<%
+	String message = (String) session.getAttribute("message");
+	if(message == null) message = " ";
+%>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -17,7 +21,7 @@
 	legend {color: white; text-align: left}
 	p {color: white; font-size: 13pt}
 	table {font-family: Verdana; border: 3px solid yellow; margin-left: auto; margin-right: auto; width: 75%;}
-		th, td {padding: 5px; border: 1px solid yellow; color: lightblue; width: 20%}
+		th, td {padding: 5px; border: 1px solid yellow; color: blue; width: 20%}
 		textarea {width: 150px; height: 17pt; color: yellow; background: #665D1E; font-size: 14pt; font-family: Arial} 
 </style>
 
@@ -117,9 +121,11 @@
 	<center>
 		<p>
 			<b>Execution Results</b>
-			<table id="results">
-				
-			</table>
+			<center>
+				<table id="data" style="background-color: white; color: black; text-align: center">
+					<%=message%>
+				</table>
+			</center>
 		</p>
 	</center>
 	
