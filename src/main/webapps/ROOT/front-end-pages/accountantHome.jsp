@@ -21,7 +21,7 @@
 <form action="../accountant" method="post">
 <div class="radio">
     <div class="radioButton">
-        <input type="radio" name="radio" id="radio1" class="radio"  value="1">
+        <input type="radio" name="radio" id="radio1" class="radio"  checked value="1">
         <label class=radio for="radio1">Get the Maximum Status of All Suppliers <em style="color: black;"> (Returns a Maximum Value)</em></label>
     </div>
     <div class="radioButton">

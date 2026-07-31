@@ -36,7 +36,7 @@ public class rootServlet extends HttpServlet {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
         
-        
+        message = "";
         
         try {
         	getRootDBConnection();
@@ -73,10 +73,10 @@ public class rootServlet extends HttpServlet {
         	}
         	else
         	{
-        		message +=("<tr>");
-        		// update query
+        		int rows = statement.executeUpdate(query);
         		
-                
+        		message += "<tr><td>statement executed successfully</tr></td>";
+        		message += "<tr><td>" + rows + "row(s) affected</tr></td>";
         	}
         	
         	

@@ -22,6 +22,7 @@ public class accountantUserServlet extends HttpServlet {
 	private Statement statement;
 	private int mysqlUpdateValue;
 	private int[] updateReturnValues;
+	private CallableStatement cs;
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
         // boolean goodCred = false;
@@ -37,6 +38,15 @@ public class accountantUserServlet extends HttpServlet {
         
         String message = "";
         
+        String sumParts = "{call Get_The_Sum_Of_All_Parts_Weights()}";
+        String maxSupp = "{call Get_The_Maximum_Status_Of_All_Suppliers()}";
+        String totalShip = "{call Get_The_Total_Number_Of_Shipments()}";
+        String getJob = "{call Get_The_Name_Of_The_Job_With_The_Most_Workers()}";
+        String list = "{call List_The_Name_And_Status_Of_All_Suppliers()}";
+        
+        
+        
+        
          try {
         	getClientDBConnection();
         	
@@ -44,7 +54,9 @@ public class accountantUserServlet extends HttpServlet {
         	{
         		case "1":
         			query = "select MAX(status) from suppliers";
-        			lookupResults = statement.executeQuery(query);
+        			// lookupResults = statement.executeQuery(query);
+        			cs = connection.prepareCall(maxSupp);
+        			lookupResults = cs.executeQuery();
         			lookupResults.next();
             		message += ("<tr>");
             		message += ("<td>Maximum_Status_Of_All_Suppliers</td>");
@@ -56,7 +68,8 @@ public class accountantUserServlet extends HttpServlet {
             		
         		case "2":
         			query = "select SUM(weight) from parts";
-        			lookupResults = statement.executeQuery(query);
+        			cs = connection.prepareCall(sumParts);
+        			lookupResults = cs.executeQuery();
         			lookupResults.next();
             		message += ("<tr>");
             		message += ("<td>TOTAL_WEIGHT_OF_ALL_PARTS</td>");
@@ -68,7 +81,8 @@ public class accountantUserServlet extends HttpServlet {
             		
         		case "3":
         			query = "select COUNT(*) from shipments";
-        			lookupResults = statement.executeQuery(query);
+        			cs = connection.prepareCall(totalShip);
+        			lookupResults = cs.executeQuery();
         			lookupResults.next();
             		message += ("<tr>");
             		message += ("<td>TOTAL_NUMBER_OF_SHIPMENTS</td>");
@@ -80,7 +94,8 @@ public class accountantUserServlet extends HttpServlet {
             		
         		case "4":
         			query = "select jname, jnum from jobs where numworkers = ( select MAX(numworkers) from jobs )";
-        			lookupResults = statement.executeQuery(query);
+        			cs = connection.prepareCall(getJob);
+        			lookupResults = cs.executeQuery();
         			lookupResults.next();
             		message += ("<tr>");
             		message += ("<td>jname</td><td>jnum</td>");
@@ -92,7 +107,8 @@ public class accountantUserServlet extends HttpServlet {
             		
         		case "5":
         			query = "select sname, status from suppliers";
-        			lookupResults = statement.executeQuery(query);
+        			cs = connection.prepareCall(list);
+        			lookupResults = cs.executeQuery();
         			metadata = lookupResults.getMetaData();
             		int count = metadata.getColumnCount();
         			lookupResults.next();
@@ -135,14 +151,15 @@ public class accountantUserServlet extends HttpServlet {
     	MysqlDataSource datasource = null;
     	
     	try {
-    		in = new FileInputStream("/home/christopheralbear/Downloads/tomcat/apache-tomcat-11.0.23/webapps/ROOT/WEB-INF/conf/data-entry.properties");
+    		in = new FileInputStream("/home/christopheralbear/Downloads/tomcat/apache-tomcat-11.0.23/webapps/ROOT/WEB-INF/conf/the-accountant.properties");
     		properties.load(in);
     		datasource = new MysqlDataSource();
     		datasource.setUrl(properties.getProperty("MYSQL_DB_URL"));
     		datasource.setUser(properties.getProperty("MYSQL_DB_USERNAME"));
     		datasource.setPassword(properties.getProperty("MYSQL_DB_PASSWORD"));
     		connection = datasource.getConnection();
-    		statement = connection.createStatement();
+    		
+    		// statement = connection.createStatement();
     	} catch (SQLException e) {
     		e.printStackTrace();
     	} catch (FileNotFoundException e) {
