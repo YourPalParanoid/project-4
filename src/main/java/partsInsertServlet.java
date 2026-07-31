@@ -1,3 +1,9 @@
+/* Name: Christopher Albear
+Course: CNT 4714 – Summer 2026 – Project Three
+Assignment title: A Three-Tier Distributed Web-Based Application
+Date: Friday July 31, 2026
+*/
+
 import com.mysql.cj.jdbc.MysqlDataSource;
 	
 

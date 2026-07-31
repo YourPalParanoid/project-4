@@ -1,3 +1,9 @@
+/* Name: Christopher Albear
+Course: CNT 4714 – Summer 2026 – Project Three
+Assignment title: A Three-Tier Distributed Web-Based Application
+Date: Friday July 31, 2026
+*/
+
 import com.mysql.cj.jdbc.MysqlDataSource;
 	
 
@@ -35,6 +41,7 @@ public class suppliersInsertServlet extends HttpServlet {
     	String snum = request.getParameter("snum");
         String sname = request.getParameter("sname");
         String status = request.getParameter("status");
+        
         String city = request.getParameter("city");
         String credQuery = "insert into suppliers VALUES (?, ?, ?, ?)";
         
