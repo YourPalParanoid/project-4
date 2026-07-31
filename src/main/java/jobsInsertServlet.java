@@ -59,7 +59,7 @@ public class jobsInsertServlet extends HttpServlet {
     		// update query
     		pstatement.executeUpdate();
     		
-    		message += ("<td style=\"color: black\"> New Shipment Record (" + jnum + ", " + jname + ", " + numworkers + ", " + city + ")</td>");
+    		message += ("<td style=\"color: black\"> New Shipment Record (" + jnum + ", " + jname + ", " + numworkers + ", " + city + ") - successfully entered into database</td>");
     		
         } catch (SQLException e)
         {

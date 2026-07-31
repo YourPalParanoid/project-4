@@ -112,11 +112,19 @@
 				</table>
 				<br />
 				<input type="submit" value="Enter Shipment Record into Database" name="shipmentForm"/> &nbsp; &nbsp; &nbsp;
-				<input type="reset" value="Clear Data and Results" onclick="javascript:eraseData();"/> &nbsp; &nbsp; &nbsp;
+				<input type="reset" value="Clear Data and Results" onclick="eraseData();"/> &nbsp; &nbsp; &nbsp;
 			</div>
 	</form>
 	
 	<hr>
+	
+	<script>
+	function eraseData()
+	{
+		var table = document.getElementById('data');
+		table.innerHTML = '';
+	}
+</script>
 	
 	<center>
 		<p>

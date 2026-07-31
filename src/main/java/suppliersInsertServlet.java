@@ -53,7 +53,7 @@ public class suppliersInsertServlet extends HttpServlet {
     		// update query
     		pstatement.executeUpdate();
     		
-    		message += ("<td style=\"color: black\"> New Suppliers Record (" + snum + ", " + sname + ", " + status + ", " + city + ")</td>");
+    		message += ("<td style=\"color: black\"> New Suppliers Record (" + snum + ", " + sname + ", " + status + ", " + city + ") - successfully entered into database</td>");
     		
         } catch (SQLException e)
         {

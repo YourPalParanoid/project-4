@@ -54,8 +54,11 @@ public class shipmentsInsertServlet extends HttpServlet {
     		// update query
     		pstatement.executeUpdate();
     		
-    		message +=("<td style=\"color: black\"> New Shipment Record (" + snum + ", " + pnum + ", " + jnum + ", " + quantity + ")</td>");
+    		message +=("<td style=\"color: black\"> New Shipment Record (" + snum + ", " + pnum + ", " + jnum + ", " + quantity + ") - successfully entered into database - business logic triggered</td>");
     		
+    		credQuery = "update suppliers set status = status + 5 where snum in (select snum from shipments where quantity >= 100)";
+    		pstatement = connection.prepareStatement(credQuery);
+    		pstatement.executeUpdate();
         	
         	
         } catch (SQLException e)

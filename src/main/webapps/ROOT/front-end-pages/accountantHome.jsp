@@ -43,10 +43,17 @@
 </div>
 <div style="display: flex;height: 40px; column-gap: 20px">
     <button type="submit"> Execute Command </button>
-    <button type="reset" style="color: yellow"> Clear Results </button>
+    <button type="button" style="color: yellow" onClick="eraseData()"> Clear Results </button>
 </div>
 </form>
 
+<script>
+	function eraseData()
+	{
+		var table = document.getElementById('data');
+		table.innerHTML = '';
+	}
+</script>
 
 <p> All execution results will appear below this line </p>
 <hr>

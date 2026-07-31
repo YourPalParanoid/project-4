@@ -76,7 +76,26 @@ public class rootServlet extends HttpServlet {
         		int rows = statement.executeUpdate(query);
         		
         		message += "<tr><td>statement executed successfully</tr></td>";
-        		message += "<tr><td>" + rows + "row(s) affected</tr></td>";
+        		message += "<tr><td>" + rows + " row(s) affected</tr></td>";
+        		
+        		if (query.contains("shipments"))
+        		{
+        			message += "<tr><td>business logic triggered! Updating supplier status!</tr></td>";
+        			query = "update suppliers set status = status + 5 where snum in (select snum from shipments where quantity >= 100)";
+        			rows = statement.executeUpdate(query);
+        			message += "<tr><td>Business logic updated " + rows + " supplier status marks</tr></td>";
+        		}
+        		
+        		// if inserting shipment of quantity >= 100
+        		// every shipment with a quantity >= 100 gets a +5 bump to their supplier status
+        		// just run the update -> run through all shipments
+        		// if quantity >= 100
+        			// update their supplier entry with +5
+        		
+        		// nvm he gives us the query
+        		// parse
+        		// if shipment table is involved, run the business logic
+        		
         	}
         	
         	

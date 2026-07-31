@@ -72,7 +72,7 @@ public class partsInsertServlet extends HttpServlet {
     		// update query
     		pstatement.executeUpdate();
     		
-    		message +=("<td> New Shipment Record (" + pnum + ", " + pname + ", " + color + ", " + weight + ", " + city + ")</td>");
+    		message +=("<td> New Shipment Record (" + pnum + ", " + pname + ", " + color + ", " + weight + ", " + city + ") - successfully entered into database</td>");
     		
         	
         	

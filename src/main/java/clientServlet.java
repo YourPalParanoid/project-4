@@ -71,7 +71,8 @@ public class clientServlet extends HttpServlet {
         	}
         	else
         	{
-        		
+        		statement.executeUpdate(query);
+        		// will throw a sqlexception
         	}
         	
         	
